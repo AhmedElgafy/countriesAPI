@@ -1,0 +1,23 @@
+@import url("../node_modules/bootstrap/dist/css/bootstrap.min.css");
+
+input::placeholder {
+    opacity: 0.5;
+    color: hsl(0, 0%, 98%);
+    /* background-color: hsl(207, 26%, 17%); */
+    border: 0px ;
+    /* margin: 0px; */
+
+
+}
+input{
+    background:hsl(209, 23%, 22%);
+    
+}
+.dropdown{
+    justify-self: end !important;
+    text-align: end;
+}
+
+.dropdown a{
+ color: hsl(0, 0%, 98%) !important;
+}
