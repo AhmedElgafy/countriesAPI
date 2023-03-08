@@ -26,6 +26,16 @@ const Nav=()=>
 }
 
 const Query=()=>{
+  const [filter,setFilter]=useState({region:undefined})
+  const clicked=(e)=>{
+    let region=e.target.text
+    if(region=="All"){
+      // console.log("yre")
+      region=undefined      
+    }
+    setFilter({region:region})
+  }
+  //console.log(filter.region)
 return(
   < >
   <div className='container my-5 mx-auto '>
@@ -40,23 +50,26 @@ return(
       </div>
       <div className='col-8 mt-3'></div>
                                     {/* filterDd */}
+
+
       <div className=' col dropdown  rounded  ' style={eleColor} >
         <button className='btn  text-white btn-default 
         dropdown-toggle w-100' data-bs-toggle="dropdown" 
         >Filter by Region</button>
         <ul className='dropdown-menu w-100 ' style={eleColor}>
-          <li><a className='dropdown-item' href='#' >Africa</a> </li>
-          <li><a className='dropdown-item' href='#' >America</a> </li>
-          <li><a className='dropdown-item' href='#' >Asia</a> </li>
-          <li><a className='dropdown-item' href='#' >Europe</a> </li>
-          <li><a className='dropdown-item' href='#' >Oceania</a> </li>
-          <li><a className='dropdown-item' href='#' >All</a> </li>
+          <li><a className='dropdown-item' onClick={(e)=>clicked(e)} href='#' >Africa</a> </li>
+          <li><a className='dropdown-item' onClick={(e)=>clicked(e)} href='#' >Americas</a> </li>
+          <li><a className='dropdown-item' onClick={(e)=>clicked(e)} href='#' >Asia</a> </li>
+          <li><a className='dropdown-item' onClick={(e)=>clicked(e)} href='#' >Europe</a> </li>
+          <li><a className='dropdown-item' onClick={(e)=>clicked(e)} href='#' >Oceania</a> </li>
+          <li><a className='dropdown-item' onClick={(e)=>clicked(e)} href='#' >All</a> </li>
         </ul>
         
         
       </div>
     </div>
   </div>
+  <List filter={filter.region}/>
   </>
 )
 }
@@ -77,44 +90,51 @@ const getCountryName=(code)=>{
 }
 
 
-const Sw=(props)=>{
+const Offcavas=(props)=>{
   const borderCountries=[]
   const index=props.index
-  for(let i of data[index].borders){
+  if(data[index].borders){
+
+    for(let i of data[index].borders){
+      borderCountries.push(
+        
+        <div key={getCountryName(i)} className=' text-center m-1  p-2 w-md-25 rounded shadow' style={eleColor}>{getCountryName(i)}</div>
+        
+      )
+    }
+  }else{
     borderCountries.push(
-      
-      <div key={getCountryName(i)} className='col text-center m-1 flex-fill flex-grow-0 flex-shrink-0 rounded shadow' style={eleColor}>{getCountryName(i)}</div>
-      
+      <div  className=' text-center m-1  p-2 w-md-25 rounded shadow' style={eleColor}>No Countries around</div>
     )
+
   }
-  console.log(borderCountries)
+  //console.log(borderCountries)
   //console.log("from Sw"+ props.index)
   return (
    <>
      <div className='offcanvas offcanvas-start   bg-dark' style={{color:"white"}} tabIndex="-1" id='offcavas' aria-labelledby='offcavasLabel'>
        <div className="offcanvas-body m-auto w-90">
           <button type="button" className=" btn my-5 text-white shadow btn-lg" style={eleColor} data-bs-dismiss="offcanvas" aria-label="Close">  &#8592; Back</button>
-          <div className='row flex-grow-0 flex-shrink-0 row-cols-l-2 '>
-            <div className='col w-25'>
-              <img src={data[index].flags.svg} alt="" className='  ' />
-            </div>
+          <div className='row flex-grow-0 flex-shrink-0 row-cols-m-2 '>          
+              <img src={data[index].flags.svg} alt="" className='    col-lg-6 col-12  ' style={{objectFit:"contain"}}/>
           <div className="col d-flex flex-column justify-content-between container my-5 ms-1 ms-lg-5">
               <h1 className='row  '>{data[index].name}</h1>
-              <div className='row '> 
-                <ul className="col" style={{listStyle:"none",padding:0}}>
+              <div className='row row-cols-md-2 row-cols-1  '> 
+                <ul className="col " style={{listStyle:"none",padding:0}}>
                   <li  className='my-3'>Native Name: {data[index].nativeName}</li>
                   <li  className='my-3'>Population: {data[index].population}</li>
                   <li  className='my-3'>Sub Region: {data[index].subregion}</li>
                   <li  className='my-3'>Capital: {data[index].capital}</li>
                 </ul>
-                <ul className="col" style={{listStyle:"none",padding:0}}>
+                <ul className="col ps-2" style={{listStyle:"none",padding:0}}>
                   <li  className='my-3'>Top Level Domain: {data[index].topLevelDomain}</li>
                   <li  className='my-3'>Currencies: {data[index].currencies[0].name}</li>
                   <li  className='my-3'>Languages:  {data[index].languages[0].name}</li>
                 </ul>
               </div>
-              <div className='row row-cols-1 row-cols-lg-5 align-items-center '>
-                <div className='col-4'>Border Countries: </div>
+              <div className='row  row-cols-lg-5 align-items-center '>
+                <div className='col-4  p-0 justify-content-left'>Border Countries: </div>
+            
                   {borderCountries}
                 
               </div>
@@ -125,22 +145,27 @@ const Sw=(props)=>{
    </>
   )  
  }
-const List=()=>{
+const List=(props)=>{
   const list=[]
   const [index,setIndex]=useState(0)
+  const filter=props.filter
+  console.log(filter)
+
   const DisPlay=(e)=>
   {
     const index=e.target.getAttribute("value")
     //console.log(<Sw hi={index}></Sw>)
 
-    console.log(index)
+    //console.log(index)
     setIndex(index)
   }
 
-    for(var x=data.length-4;x<data.length;x++){
+  for(var x=0;x<data.length;x++){
+    console.log("in for loop")
+    if(!filter){
       list.push(
-        
-        <div key={x} className='card  col p-0 shadow  ' style={eleColor} onClick={(e)=>DisPlay(e)} data-bs-toggle="offcanvas" data-bs-target="#offcavas" aria-controls="offcanvasExample">
+        <div key={x} className='card  col p-0 shadow  ' style={eleColor} onClick={(e)=>DisPlay(e)}
+         data-bs-toggle="offcanvas" data-bs-target="#offcavas" aria-controls="offcanvasExample">
                 <img src={data[x].flags.png} className="card-img-top  "/>
                 <a href="#" value={x} className='stretched-link' ></a>
                 <div className='card-body '>
@@ -153,13 +178,31 @@ const List=()=>{
                 </div>
         </div>
       )
+    }else{
+      if(data[x].region==filter){
+        list.push(
+          <div key={x} className='card  col p-0 shadow  ' style={eleColor} onClick={(e)=>DisPlay(e)}
+           data-bs-toggle="offcanvas" data-bs-target="#offcavas" aria-controls="offcanvasExample">
+                  <img src={data[x].flags.png} className="card-img-top  "/>
+                  <a href="#" value={x} className='stretched-link' ></a>
+                  <div className='card-body '>
+                    <h5 className='card-title'style={{color:"hsl(0, 0%, 100%)"}} >{data[x].name}</h5>
+                    <ul className=' card-text p-0' style={{color:"hsl(0, 0%, 100%)",listStyle:"none"}}>
+                      <li>Population:  <span style={{color:"hsl(0, 0%, 88%) !important",fontWeight:"100"}}>{data[x].population}</span></li>
+                      <li>Region: <span style={{color:"hsl(0, 0%, 88%) !important",fontWeight:"100"}}>{data[x].region}</span></li>
+                      <li>Capital: <span style={{color:"hsl(0, 0%, 88%) !important",fontWeight:"100"}}>{data[x].capital}</span></li>
+                    </ul>
+                  </div>
+          </div>
+        )}
     }
+  }
     return (
       <div className='container  '>
 
         <div className=' row row-cols-lg-5 row-cols-md-3 row-cols-1 gap-5 justify-content-center mx-lg-auto mx-2 '>
           {list}
-          <Sw index={index}/>
+          <Offcavas index={index}/>
         </div>
   </div>
 
@@ -167,4 +210,4 @@ const List=()=>{
     )
 }
 
-export { Nav,Query,List}
+export { Nav,Query}
