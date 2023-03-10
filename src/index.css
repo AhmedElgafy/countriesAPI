@@ -1,4 +1,7 @@
 @import url("../node_modules/bootstrap/dist/css/bootstrap.min.css");
+body{
+    background-color: hsl(207, 26%, 17%);
+}
 
 input::placeholder {
     opacity: 0.5;
@@ -16,6 +19,7 @@ input{
     width: 100%;
     
 }
+
 .dropdown{
     justify-self: end !important;
     text-align: end;
@@ -67,3 +71,9 @@ input{
 /* img{
     object-fit: cover;
 } */
+
+.darkMood{
+    color:black !important;
+    background-color:white !important;
+
+}
