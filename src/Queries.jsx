@@ -24,8 +24,8 @@ const Query=(props)=>{
                             //listening to search par input
   return(
     < >
-    <div className='container my-5 mx-auto queries' >
-      <div className="row row-cols-md-3 row-cols-sm-3 row-cols-1 ">
+    <div className='container my-5  mx-auto  queries' >
+      <div className="row   row-cols-md-3 row-cols-sm-3 row-cols-1 mx-2 ">
           {/* searchBar */}
   
         <div className="  col d-flex rounded shadow-lg" style={props.eleColor}>
@@ -45,12 +45,12 @@ const Query=(props)=>{
           dropdown-toggle w-100`} data-bs-toggle="dropdown" id='dropDownValue'
           >Filter by Region</button>
           <ul className='dropdown-menu w-100 ' style={props.eleColor}>
-            <li ><a className={`${props.eleColor.bootColorText} dropdown-item`} onClick={(e)=>clicked(e)} href='#' >Africa</a> </li>
-            <li ><a className={`${props.eleColor.bootColorText} dropdown-item`} onClick={(e)=>clicked(e)} href='#' >Americas</a> </li>
-            <li ><a className={`${props.eleColor.bootColorText} dropdown-item`} onClick={(e)=>clicked(e)} href='#' >Asia</a> </li>
-            <li ><a className={`${props.eleColor.bootColorText} dropdown-item`} onClick={(e)=>clicked(e)} href='#' >Europe</a> </li>
-            <li ><a className={`${props.eleColor.bootColorText} dropdown-item`} onClick={(e)=>clicked(e)} href='#' >Oceania</a> </li>
-            <li ><a className={`${props.eleColor.bootColorText} dropdown-item`} onClick={(e)=>clicked(e)} href='#' >All</a> </li>
+            <li ><a className={`${props.eleColor.bootColorText} dropdown-item`} onClick={(e)=>{clicked(e);setSearchInput("")}} href='#' >Africa</a> </li>
+            <li ><a className={`${props.eleColor.bootColorText} dropdown-item`} onClick={(e)=>{clicked(e);setSearchInput("")}} href='#' >Americas</a> </li>
+            <li ><a className={`${props.eleColor.bootColorText} dropdown-item`} onClick={(e)=>{clicked(e);setSearchInput("")}} href='#' >Asia</a> </li>
+            <li ><a className={`${props.eleColor.bootColorText} dropdown-item`} onClick={(e)=>{clicked(e);setSearchInput("")}} href='#' >Europe</a> </li>
+            <li ><a className={`${props.eleColor.bootColorText} dropdown-item`} onClick={(e)=>{clicked(e);setSearchInput("")}} href='#' >Oceania</a> </li>
+            <li ><a className={`${props.eleColor.bootColorText} dropdown-item`} onClick={(e)=>{clicked(e);setSearchInput("")}} href='#' >All</a> </li>
           </ul>        
         </div>
       </div>

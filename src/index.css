@@ -86,3 +86,6 @@ body{
     background-color:white !important;
 
 }
+.cursor-pointer	{
+    cursor: pointer;
+}

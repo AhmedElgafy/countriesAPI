@@ -24,11 +24,21 @@ const getByFilter=(cardInfo)=>
     return cardInfo
   }
 }
+//get Index of the country
+const getIndexOfCountry=(name)=>{
+  for(let x =0;x<data.length;x++){
+    if(name==data[x].name){
+      return x
+    }
+  }
+
+}
 //get code of country
 const getCountryName=(code)=>{
   
   for(let x of data){
     if(code==x.alpha3Code){
+      console.log(getIndexOfCountry(x.name))
       return x.name
     }
   }
@@ -39,20 +49,25 @@ const getCountryName=(code)=>{
 
 const Offcavas=(props)=>{
   var borderCountries=[]
-  const index=props.index
+  // const index=props.index
+  const [index,setIndex]=useState(props.index)
+  useEffect(()=>setIndex(props.index),[props.index])
   
   if(data[index].borders){
 
     for(let i of data[index].borders){
       borderCountries.push(
-        <div  key={getCountryName(i)} onClick={(e)=>getCountryName(i)}
-        className=' text-center m-1  p-2 w-md-25 rounded shadow-lg ' style={eleColor}>{getCountryName(i)}</div>
+        <div  key={getCountryName(i)} onClick={(e)=>setIndex(getIndexOfCountry(getCountryName(i)))}
+        className={` text-center shadow-lg m-1 border cursor-pointer ${props.eleColor.bootColorText} p-2 w-md-25 rounded `} 
+        style={props.eleColor}>{getCountryName(i)}</div>
         
       )
     }
   }else{
     borderCountries.push(
-      <div key={0} className=' text-center m-1  p-2 w-md-25 rounded shadow' style={eleColor}>No Countries around</div>
+      <div key={0} className={` text-center shadow-lg  border 
+       m-1 ${props.eleColor.bootColorText} p-2 w-md-25 rounded `}
+        style={props.eleColor}>No Countries around</div>
     )
 
   }
@@ -61,25 +76,26 @@ const Offcavas=(props)=>{
   //console.log("from Sw"+ props.index)
   return (
    <>
-     <div className='offcanvas offcanvas-start   bg-dark' style={{color:"white"}} tabIndex="-1" id='offcavas' aria-labelledby='offcavasLabel'>
+     <div className={`offcanvas offcanvas-start ${props.eleColor.bootBgColor} ${props.eleColor.bootColorText} `} style={props.eleColor} tabIndex="-1" id='offcavas' aria-labelledby='offcavasLabel'>
        <div className="offcanvas-body m-auto w-90">
-          <button type="button" className="btn my-5 text-white shadow-lg btn-lg" style={eleColor} data-bs-dismiss="offcanvas" aria-label="Close">  &#8592; Back</button>
+          <button type="button" className={`btn border  my-5  shadow-lg ${props.eleColor.bootColorText} btn-lg`} 
+          style={props.eleColor} data-bs-dismiss="offcanvas" aria-label="Close">  &#8592; Back</button>
           <div className='row flex-grow-0 flex-shrink-0 row-cols-m-2 '>          
-              <img src={data[index].flags.svg} alt="" className='    col-lg-6 col-12  ' style={{objectFit:"contain"}}/>
+              <img src={data[index].flags.svg} alt="" className=' shadow-lg   col-lg-6 col-12  ' style={{objectFit:"contain"}}/>
           <div className="col d-flex flex-column justify-content-between container my-5 ms-1 ms-lg-5">
               <h1 className='row  '>{data[index].name}</h1>
               <div className='row row-cols-md-2 row-cols-1  '> 
                 <ul className="col " style={{listStyle:"none",padding:0}}>
-                  <li  className='my-3'>Native Name: {data[index].nativeName}</li>
-                  <li  className='my-3'>Population: {data[index].population}</li>
-                  <li  className='my-3'>Sub Region: {data[index].subregion}</li>
-                  <li  className='my-3'>Capital: {!data[index].capital ? "Have no capital":data[index].capital }</li>
+                  <li  className='my-3 '>Native Name: <span style={{fontWeight:"100"}}>{data[index].nativeName}</span></li>
+                  <li  className='my-3 '>Population: <span style={{fontWeight:"100"}}>{data[index].population}</span> </li>
+                  <li  className='my-3 '>Sub Region: <span style={{fontWeight:"100"}}>{data[index].subregion}</span> </li>
+                  <li  className='my-3 '>Capital: <span style={{fontWeight:"100"}}>{!data[index].capital ? "Have no capital":data[index].capital }</span> </li>
                 </ul>
-                <ul className="col ps-2" style={{listStyle:"none",padding:0}}>
-                  <li  className='my-3'>Top Level Domain: {data[index].topLevelDomain}</li>
-                  <li  className='my-3'>Currencies: {!data[index].currencies ? "No Currencies":
-                  data[index].currencies[0].name}</li>
-                  <li  className='my-3'>Languages:  {data[index].languages[0].name}</li>
+                <ul className="col  ps-md-2 ps-0" style={{listStyle:"none",padding:0}}>
+                  <li  className='my-3'>Top Level Domain: <span style={{fontWeight:"100"}}>{data[index].topLevelDomain}</span> </li>
+                  <li  className='my-3'>Currencies: <span style={{fontWeight:"100"}}>{!data[index].currencies ? "No Currencies":
+                  data[index].currencies[0].name}</span></li>
+                  <li  className='my-3'>Languages:  <span style={{fontWeight:"100"}}>{data[index].languages[0].name}</span></li>
                 </ul>
               </div>
               <div className='row  row-cols-lg-5 align-items-center '>
@@ -197,7 +213,7 @@ const Cards=(props)=>{
           mx-2 '>
             {/* {console.log(newList)} */}
           {newList}
-          <Offcavas index={index}/>
+          <Offcavas index={index} eleColor={props.eleColor}/>
         </div>
       </div>
     )
