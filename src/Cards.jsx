@@ -9,11 +9,13 @@ var eleColor={background:"hsl(209, 23%, 22%)",
 //bring the data from file.
 
 const url="../data.json"
-const res=await fetch(url)
-const data=await res.json()
-const url2="../alph 3.json"
-const res2=await fetch(url)
-const data2=await res2.json()
+let data
+async function getData(){
+  const res=await fetch(url)
+  data=await res.json()
+  
+}
+getData()
 
 const getByFilter=(cardInfo)=>
 {
@@ -38,7 +40,7 @@ const getCountryName=(code)=>{
   
   for(let x of data){
     if(code==x.alpha3Code){
-      console.log(getIndexOfCountry(x.name))
+      // console.log(getIndexOfCountry(x.name))
       return x.name
     }
   }
@@ -50,10 +52,11 @@ const getCountryName=(code)=>{
 const Offcavas=(props)=>{
   var borderCountries=[]
   // const index=props.index
+  // const data=props.data
   const [index,setIndex]=useState(props.index)
-  useEffect(()=>setIndex(props.index),[props.index])
+  useEffect(()=>setIndex(props.index),[props.index,data])
   
-  if(data[index].borders){
+  if(data&&data[index].borders){
 
     for(let i of data[index].borders){
       borderCountries.push(
@@ -74,43 +77,46 @@ const Offcavas=(props)=>{
   //console.log(borderCountries)
 
   //console.log("from Sw"+ props.index)
-  return (
-   <>
-     <div className={`offcanvas offcanvas-start ${props.eleColor.bootBgColor} ${props.eleColor.bootColorText} `} style={props.eleColor} tabIndex="-1" id='offcavas' aria-labelledby='offcavasLabel'>
-       <div className="offcanvas-body m-auto w-90">
-          <button type="button" className={`btn border  my-5  shadow-lg ${props.eleColor.bootColorText} btn-lg`} 
-          style={props.eleColor} data-bs-dismiss="offcanvas" aria-label="Close">  &#8592; Back</button>
-          <div className='row flex-grow-0 flex-shrink-0 row-cols-m-2 '>          
-              <img src={data[index].flags.svg} alt="" className=' shadow-lg   col-lg-6 col-12  ' style={{objectFit:"contain"}}/>
-          <div className="col d-flex flex-column justify-content-between container my-5 ms-1 ms-lg-5">
-              <h1 className='row  '>{data[index].name}</h1>
-              <div className='row row-cols-md-2 row-cols-1  '> 
-                <ul className="col " style={{listStyle:"none",padding:0}}>
-                  <li  className='my-3 '>Native Name: <span style={{fontWeight:"100"}}>{data[index].nativeName}</span></li>
-                  <li  className='my-3 '>Population: <span style={{fontWeight:"100"}}>{data[index].population}</span> </li>
-                  <li  className='my-3 '>Sub Region: <span style={{fontWeight:"100"}}>{data[index].subregion}</span> </li>
-                  <li  className='my-3 '>Capital: <span style={{fontWeight:"100"}}>{!data[index].capital ? "Have no capital":data[index].capital }</span> </li>
-                </ul>
-                <ul className="col  ps-md-2 ps-0" style={{listStyle:"none",padding:0}}>
-                  <li  className='my-3'>Top Level Domain: <span style={{fontWeight:"100"}}>{data[index].topLevelDomain}</span> </li>
-                  <li  className='my-3'>Currencies: <span style={{fontWeight:"100"}}>{!data[index].currencies ? "No Currencies":
-                  data[index].currencies[0].name}</span></li>
-                  <li  className='my-3'>Languages:  <span style={{fontWeight:"100"}}>{data[index].languages[0].name}</span></li>
-                </ul>
-              </div>
-              <div className='row  row-cols-lg-5 align-items-center '>
-                <div className='col-4  p-0 justify-content-left'
-                >Border Countries: </div>
-            
-                  {borderCountries}
-                
+  if(data){
+
+    return (
+    <>
+      <div className={`offcanvas offcanvas-start ${props.eleColor.bootBgColor} ${props.eleColor.bootColorText} `} style={props.eleColor} tabIndex="-1" id='offcavas' aria-labelledby='offcavasLabel'>
+        <div className="offcanvas-body m-auto w-90">
+            <button type="button" className={`btn border  my-5  shadow-lg ${props.eleColor.bootColorText} btn-lg`} 
+            style={props.eleColor} data-bs-dismiss="offcanvas" aria-label="Close">  &#8592; Back</button>
+            <div className='row flex-grow-0 flex-shrink-0 row-cols-m-2 '>          
+                <img src={data[index].flags.svg} alt="" className=' shadow-lg   col-lg-6 col-12  ' style={{objectFit:"contain"}}/>
+            <div className="col d-flex flex-column justify-content-between container my-5 ms-1 ms-lg-5">
+                <h1 className='row  '>{data[index].name}</h1>
+                <div className='row row-cols-md-2 row-cols-1  '> 
+                  <ul className="col " style={{listStyle:"none",padding:0}}>
+                    <li  className='my-3 '>Native Name: <span style={{fontWeight:"100"}}>{data[index].nativeName}</span></li>
+                    <li  className='my-3 '>Population: <span style={{fontWeight:"100"}}>{data[index].population}</span> </li>
+                    <li  className='my-3 '>Sub Region: <span style={{fontWeight:"100"}}>{data[index].subregion}</span> </li>
+                    <li  className='my-3 '>Capital: <span style={{fontWeight:"100"}}>{!data[index].capital ? "Have no capital":data[index].capital }</span> </li>
+                  </ul>
+                  <ul className="col  ps-md-2 ps-0" style={{listStyle:"none",padding:0}}>
+                    <li  className='my-3'>Top Level Domain: <span style={{fontWeight:"100"}}>{data[index].topLevelDomain}</span> </li>
+                    <li  className='my-3'>Currencies: <span style={{fontWeight:"100"}}>{!data[index].currencies ? "No Currencies":
+                    data[index].currencies[0].name}</span></li>
+                    <li  className='my-3'>Languages:  <span style={{fontWeight:"100"}}>{data[index].languages[0].name}</span></li>
+                  </ul>
+                </div>
+                <div className='row  row-cols-lg-5 align-items-center '>
+                  <div className='col-4  p-0 justify-content-left'
+                  >Border Countries: </div>
+              
+                    {borderCountries}
+                  
+                </div>
               </div>
             </div>
-          </div>
-       </div>
-     </div>
-   </>
-  )  
+        </div>
+      </div>
+    </>
+    )  
+  }
 }
 
 
@@ -135,17 +141,21 @@ var getIndex=(e)=>{
 
 const Cards=(props)=>{
   // console.log(props.eleColor)
-  
    const [index,setIndex]=useState(0)
   // setIndex(index1)
   const [darkText,setDarkText]=useState()
-  
   const list=[]
-  // const [list,setList]=useState([])
+  const [data,setData]=useState(
+    async function getData(){
+      const res=await fetch(url)
+      setData(await res.json())
+      
+    }
+  )
+  useEffect(()=>setData(data),[data])
 
-  // useEffect(()=>{console.log("hi")},[props.eleColor])
     
-    for(let x=0;x<data.length&&list.length!=data.length;x++){
+    for(let x=0;data&&x<data.length&&list.length!=data.length;x++){
       // console.log("iam in")
             list.push(
           <div key={x} countryname={data[x].name} onClick={(e)=>setIndex(x)}  countryregion={data[x].region}
@@ -163,7 +173,7 @@ const Cards=(props)=>{
                     </div>
             </div>
             )
-            console.log("iam here")
+            // console.log("iam here")
           }
   var newList=list
 
@@ -173,7 +183,6 @@ const Cards=(props)=>{
   const filter=props.filter
   const searchInput=props.search
   
-  // console.log(!searchInput,!filter)
   if(!filter && !searchInput){
     
     // console.log(!newList)
@@ -204,19 +213,23 @@ const Cards=(props)=>{
 
 
 
+  if(data){
+    
+    return (
+        <div className='container mb-5'>
   
-  return (
-      <div className='container mb-5'>
-
-        <div className=' row row-cols-lg-5 row-cols-md-3 
-        row-cols-1 gap-5 justify-content-center mx-lg-auto
-          mx-2 '>
-            {/* {console.log(newList)} */}
-          {newList}
-          <Offcavas index={index} eleColor={props.eleColor}/>
+          <div className=' row row-cols-lg-5 row-cols-md-3 
+          row-cols-1 gap-5 justify-content-center mx-lg-auto
+            mx-2 '>
+              {/* {console.log(newList)} */}
+            {newList}
+            <Offcavas data={data} index={index} eleColor={props.eleColor}/>
+          </div>
         </div>
-      </div>
-    )
+      )
+  }else{
+    return(<p className=' text-bg-dark'>Loading...</p>)
+  }
 }
 
 
