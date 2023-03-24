@@ -14,22 +14,22 @@ const Nav=()=>
                                             imgStyle:{filter: "invert(100%)",width:"5%"},
                                             navBg:""
                                             })
-    const [imgModeUrl,setImgModeUrl]= useState("../public/dark_mode.svg")
+    const [imgModeUrl,setImgModeUrl]= useState("../public/img/dark_mode.png")
     
     
     const handleDarkMode=()=>{
       (darkModeText=="Dark Mode")?setDarkText("Light Mode"):setDarkText("Dark Mode")
-      imgModeUrl=="../public/dark_mode.svg"? setImgModeUrl("https://static.thenounproject.com/png/2540391-200.png"):setImgModeUrl("../public/dark_mode.svg")
+      imgModeUrl=="../public/img/dark_mode.png"? setImgModeUrl("https://static.thenounproject.com/png/2540391-200.png"):setImgModeUrl("../public/img/dark_mode.png")
       eleColor.bootColorText=="text-white"? setEleColor({...eleColor,
                   background:"white",
                   bootBgColor:"bg-white",
                   bootColorText:"text-dark",
-                  imgStyle:{filter: "invert(0%)",width:"50%"},
+                  imgStyle:{filter: "invert(0%)",width:"5%"},
                   navBg:"bg-white"}):
 setEleColor({...eleColor,bootColorText:"text-white",
                   background:"hsl(209, 23%, 22%)",
                   bootBgColor:" bg-dark",
-                  imgStyle:{filter: "invert(100%)",width:"50%"},
+                  imgStyle:{filter: "invert(100%)",width:"5%"},
                   navBg:""})
       // eleColor.navBg==""? setEleColor({...eleColor,navBg:"bg-white"}):setEleColor({...eleColor,navBg:""})
       // console.log(eleColor.bootColorText)
