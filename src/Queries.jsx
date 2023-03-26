@@ -30,7 +30,7 @@ const Query=(props)=>{
   
         <div className="  col d-flex rounded shadow-lg" style={props.eleColor}>
           
-          <img src="../public/search.png " alt="" style={{filter: "invert(60%)"}}  className="col"/> 
+          <img src="../img/search.svg " alt="" style={{filter: "invert(60%)"}}  className="col"/> 
           <input  type="text"  placeholder="Search for a country..." 
           style={{background:props.eleColor.background}}
            onChange={(e)=>setSearchInput(e.target.value)} className={`${props.eleColor.bootColorText}  border-0 input `} id='search input' />
