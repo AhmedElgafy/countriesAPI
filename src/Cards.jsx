@@ -86,7 +86,7 @@ const Offcavas=(props)=>{
             <button type="button" className={`btn border  my-5  shadow-lg ${props.eleColor.bootColorText} btn-lg`} 
             style={props.eleColor} data-bs-dismiss="offcanvas" aria-label="Close">  &#8592; Back</button>
             <div className='row flex-grow-0 flex-shrink-0 row-cols-m-2 '>          
-                <img src={data[index].flags.svg} alt="" className=' shadow-lg   col-lg-6 col-12  ' style={{objectFit:"contain"}}/>
+                <img src={data[index].flags.svg} alt={`${data[index].name} flag`} className=' shadow-lg   col-lg-6 col-12  ' style={{objectFit:"contain"}}/>
             <div className="col d-flex flex-column justify-content-between container my-5 ms-1 ms-lg-5">
                 <h1 className='row  '>{data[index].name}</h1>
                 <div className='row row-cols-md-2 row-cols-1  '> 
@@ -161,7 +161,7 @@ const Cards=(props)=>{
           <div key={x} countryname={data[x].name} onClick={(e)=>setIndex(x)}  countryregion={data[x].region}
             id="card" className='card  col p-0 shadow-lg clickableCard ' style={props.eleColor} 
             data-bs-toggle="offcanvas" data-bs-target="#offcavas" aria-controls="offcanvasExample">
-                    <img src={data[x].flags.png} className="card-img-top  "/>
+                    <img src={data[x].flags.png} alt={`${data[x].name} flag`} className="card-img-top  "/>
                     <a href="#" value={x} className='stretched-link'  ></a>
                     <div className='card-body '>
                       <h5 key={data[x].name+"1"} className={`card-title ${props.eleColor.bootColorText} `} >{data[x].name}</h5>

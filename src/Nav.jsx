@@ -10,7 +10,7 @@ const Nav=()=>
     const [eleColor,setEleColor]= useState({background:"hsl(209, 23%, 22%)"
                                             ,color:"white ",
                                             bootColorText:"text-white",
-                                            imgStyle:{filter: "invert(100%)",width:"5%"},
+                                            imgStyle:{filter: "invert(100%)",width:"25px"},
                                             navBg:""
                                             })
     const [imgModeUrl,setImgModeUrl]= useState("../img/dark_mode.svg")
@@ -22,11 +22,11 @@ const Nav=()=>
       eleColor.bootColorText=="text-white"? setEleColor({...eleColor,
                                                               background:"white",
                                                               bootColorText:"text-dark",
-                                                              imgStyle:{filter: "invert(0%)",width:"6%"},
+                                                              imgStyle:{filter: "invert(0%)",width:"25px"},
                                                               navBg:"bg-white"}):
                                             setEleColor({...eleColor,bootColorText:"text-white",
                                                               background:"hsl(209, 23%, 22%)",
-                                                              imgStyle:{filter: "invert(100%)",width:"5%"},
+                                                              imgStyle:{filter: "invert(100%)",width:"25px"},
                                                               navBg:""})
       // eleColor.navBg==""? setEleColor({...eleColor,navBg:"bg-white"}):setEleColor({...eleColor,navBg:""})
       // console.log(eleColor.bootColorText)
@@ -43,9 +43,9 @@ const Nav=()=>
       <h3 className={` h5 d-flex align-content-end my-auto col ${eleColor.bootColorText} m-0 font-weight-bold`} >Where in the world?</h3>
       <div className='col d-flex justify-content-end
                        align-items-center'onClick={()=>handleDarkMode()} >
-        <img src={imgModeUrl}
-         className=' my-auto  mx-2 img-fluid ' 
-         style={eleColor.imgStyle} alt="" />
+        <img src={imgModeUrl} 
+         className='  mx-2 img-fluid ' 
+         style={eleColor.imgStyle} alt="them mode" />
         <p className={`h5 ${eleColor.bootColorText}`}>{darkModeText}</p>
       </div>
 
